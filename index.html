@@ -109,52 +109,21 @@
             gap: 1rem;
         }
 
-        .nav-ornament {
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-            opacity: 0.7;
-            animation: ornamentGlow 3s ease-in-out infinite;
-        }
 
         @keyframes ornamentGlow {
             0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
         }
 
-        .nav-water-drop {
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, var(--hydro-light), var(--hydro-pale));
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            position: relative;
-            animation: waterDrop 4s ease-in-out infinite;
-        }
-
-        .nav-water-drop::after {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: rgba(255,255,255,0.4);
-            border-radius: 50%;
-            top: 4px;
-            left: 4px;
-        }
-
-        @keyframes waterDrop {
-            0%, 100% { transform: rotate(-45deg) scale(1); }
-            50% { transform: rotate(-45deg) scale(1.1); }
-        }
 
         .nav-logo {
             font-family: 'Cinzel', serif;
             font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(135deg, 
-                var(--hydro-pale) 0%, 
-                var(--hydro-light) 30%,
-                var(--accent-gold-light) 60%,
+            background: linear-gradient(135deg,
+                var(--hydro-pale) 0%,
+                var(--hydro-light) 40%,
+                var(--accent-gold-light) 70%,
                 var(--accent-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -162,18 +131,39 @@
             letter-spacing: 0.1em;
             text-shadow: 0 0 30px rgba(79,195,247,0.3);
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .nav-logo-ornament {
+            font-size: 1.5rem;
+            -webkit-text-fill-color: var(--accent-gold);
+            animation: ornamentGlow 3s ease-in-out infinite;
+            line-height: 1;
+        }
+
+        .nav-logo-text {
+            background: linear-gradient(135deg,
+                var(--hydro-pale) 0%,
+                var(--hydro-light) 40%,
+                var(--accent-gold-light) 70%,
+                var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-logo::after {
-            content: '~ Archon of Drama ~';
+            content: 'Multi-Agent Orchestration & Dashboard';
             display: block;
             font-family: 'Inter', sans-serif;
-            font-size: 0.55rem;
+            font-size: 0.6rem;
             font-weight: 400;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            -webkit-text-fill-color: rgba(212,168,83,0.6);
-            margin-top: -2px;
+            -webkit-text-fill-color: rgba(129,212,250,0.6);
+            margin-top: 0;
         }
 
         .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -720,9 +710,10 @@
 <nav>
     <div class="nav-container">
         <div class="nav-left">
-            <div class="nav-ornament">⚜</div>
-            <div class="nav-water-drop"></div>
-            <a href="#" class="nav-logo">Myfurina</a>
+            <a href="#" class="nav-logo">
+                <span class="nav-logo-ornament">⚜</span>
+                <span class="nav-logo-text">Myfurina</span>
+            </a>
         </div>
         
         <ul class="nav-links">
