@@ -82,25 +82,73 @@
         /* ===== FONTAINE-INSPIRED HEADER ===== */
         nav {
             position: relative;
-            
             z-index: 100;
             padding: 0;
             background: linear-gradient(180deg, 
-                rgba(10,22,40,0.95) 0%, 
-                rgba(13,31,60,0.9) 50%,
-                rgba(19,64,116,0.85) 100%);
-            backdrop-filter: blur(25px);
-            border-bottom: 2px solid rgba(212,168,83,0.3);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+                rgba(10,22,40,0.98) 0%, 
+                rgba(13,31,60,0.95) 40%,
+                rgba(19,64,116,0.9) 100%);
+            backdrop-filter: blur(30px) saturate(1.2);
+            box-shadow: 
+                0 1px 0 rgba(212,168,83,0.4),
+                0 4px 30px rgba(0,0,0,0.4),
+                0 0 60px rgba(79,195,247,0.06);
+        }
+
+        /* Top gold shimmer line */
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(212,168,83,0.15) 15%,
+                rgba(240,215,140,0.7) 30%, 
+                var(--accent-gold) 50%,
+                rgba(240,215,140,0.7) 70%,
+                rgba(212,168,83,0.15) 85%,
+                transparent 100%);
+            animation: navShimmer 4s ease-in-out infinite;
+        }
+
+        /* Bottom water reflection line */
+        nav::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(79,195,247,0.3) 20%,
+                rgba(212,168,83,0.5) 50%,
+                rgba(79,195,247,0.3) 80%,
+                transparent);
+            animation: navWaterReflect 6s ease-in-out infinite;
+        }
+
+        @keyframes navShimmer {
+            0%, 100% { opacity: 0.6; background-position: -200% center; }
+            50% { opacity: 1; background-position: 200% center; }
+        }
+
+        @keyframes navWaterReflect {
+            0%, 100% { opacity: 0.4; transform: scaleX(0.95); }
+            50% { opacity: 1; transform: scaleX(1.05); }
         }
 
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0.8rem 2rem;
+            padding: 0.7rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .nav-left {
@@ -109,12 +157,16 @@
             gap: 1rem;
         }
 
-
         @keyframes ornamentGlow {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.5; filter: drop-shadow(0 0 2px rgba(212,168,83,0.3)); }
+            50% { opacity: 1; filter: drop-shadow(0 0 8px rgba(212,168,83,0.6)); }
         }
 
+        @keyframes fleurRotate {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(3deg); }
+            75% { transform: rotate(-3deg); }
+        }
 
         .nav-logo {
             font-family: 'Cinzel', serif;
@@ -122,14 +174,14 @@
             font-weight: 700;
             background: linear-gradient(135deg,
                 var(--hydro-pale) 0%,
-                var(--hydro-light) 40%,
-                var(--accent-gold-light) 70%,
+                var(--hydro-light) 30%,
+                var(--accent-gold-light) 60%,
                 var(--accent-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-decoration: none;
-            letter-spacing: 0.1em;
-            text-shadow: 0 0 30px rgba(79,195,247,0.3);
+            letter-spacing: 0.12em;
+            text-shadow: 0 0 40px rgba(79,195,247,0.3);
             position: relative;
             display: flex;
             flex-direction: column;
@@ -138,78 +190,135 @@
         }
 
         .nav-logo-ornament {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             -webkit-text-fill-color: var(--accent-gold);
-            animation: ornamentGlow 3s ease-in-out infinite;
+            animation: ornamentGlow 3s ease-in-out infinite, fleurRotate 8s ease-in-out infinite;
             line-height: 1;
+            filter: drop-shadow(0 0 6px rgba(212,168,83,0.5));
         }
 
         .nav-logo-text {
             background: linear-gradient(135deg,
                 var(--hydro-pale) 0%,
-                var(--hydro-light) 40%,
-                var(--accent-gold-light) 70%,
+                var(--hydro-light) 30%,
+                var(--accent-gold-light) 60%,
                 var(--accent-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(79,195,247,0.2));
         }
 
         .nav-logo::after {
             content: 'AI Agent Orchestrator';
             display: block;
             font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 400;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.35em;
             text-transform: uppercase;
-            -webkit-text-fill-color: rgba(129,212,250,0.6);
-            margin-top: 0;
+            -webkit-text-fill-color: rgba(129,212,250,0.5);
+            margin-top: -0.1rem;
         }
 
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links { 
+            display: flex; 
+            gap: 0.5rem; 
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links li:not(:last-child)::after {
+            content: '\2726';
+            position: absolute;
+            right: -0.3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.45rem;
+            color: var(--accent-gold);
+            opacity: 0.3;
+        }
 
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
-            transition: all 0.3s;
-            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             position: relative;
-            padding: 0.3rem 0;
+            padding: 0.5rem 1rem;
+            border-radius: 2px;
         }
 
         .nav-links a::before {
-            content: '~';
+            content: '';
             position: absolute;
-            left: -1rem;
-            opacity: 0;
-            color: var(--accent-gold);
-            transition: opacity 0.3s;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
-            width: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-            transition: width 0.3s;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(79,195,247,0.06), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 2px;
         }
 
         .nav-links a:hover {
-            color: var(--hydro-light);
+            color: var(--hydro-pale);
+            text-shadow: 0 0 15px rgba(79,195,247,0.4);
         }
 
         .nav-links a:hover::before {
-            opacity: 1;
+            width: 80%;
         }
 
         .nav-links a:hover::after {
-            width: 100%;
+            opacity: 1;
+        }
+
+        .nav-deco-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .nav-fleur {
+            font-size: 0.7rem;
+            color: var(--accent-gold);
+            opacity: 0.5;
+            animation: ornamentGlow 4s ease-in-out infinite;
+        }
+
+        .nav-deco-line-left {
+            width: 25px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
+            opacity: 0.3;
+        }
+
+        .nav-fleur-right {
+            font-size: 0.6rem;
+            color: var(--hydro-light);
+            opacity: 0.4;
+            animation: ornamentGlow 5s ease-in-out infinite reverse;
         }
 
         .nav-right {
@@ -222,20 +331,22 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            opacity: 0.4;
+            opacity: 0.5;
+            animation: ornamentGlow 4s ease-in-out infinite;
         }
 
         .nav-deco-line {
-            width: 30px;
+            width: 35px;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
         }
 
         .nav-deco-diamond {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             background: var(--accent-gold);
             transform: rotate(45deg);
+            box-shadow: 0 0 6px rgba(212,168,83,0.4);
         }
 
         /* ===== HERO ===== */
@@ -648,6 +759,7 @@
             .nav-links { display: none; }
             .nav-container { justify-content: center; }
             .nav-right { display: none; }
+            .nav-deco-left { display: none; }
             .nav-left { justify-content: center; }
             .hero { padding: 5rem 1.5rem 3rem; }
             section { padding: 3rem 1.5rem; }
@@ -710,6 +822,10 @@
 <nav>
     <div class="nav-container">
         <div class="nav-left">
+            <div class="nav-deco-left">
+                <span class="nav-fleur">✦</span>
+                <span class="nav-deco-line-left"></span>
+            </div>
             <a href="#" class="nav-logo">
                 <span class="nav-logo-ornament">⚜</span>
                 <span class="nav-logo-text">Myfurina</span>
@@ -726,6 +842,8 @@
         <div class="nav-right">
             <div class="nav-decoration">
                 <div class="nav-deco-line"></div>
+                <div class="nav-deco-diamond"></div>
+                <span class="nav-fleur-right">✦</span>
                 <div class="nav-deco-diamond"></div>
                 <div class="nav-deco-line"></div>
             </div>
